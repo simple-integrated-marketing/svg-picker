@@ -28,7 +28,7 @@ To install the plugin, follow these instructions.
 
         composer require "simple-team/svg-picker:dev-master"
 
-4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Link It.
+4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Svg Picker.
 
 
 Brought to you by [Simple Integrated Marketing](https://simple.com.au)
