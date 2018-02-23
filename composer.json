@@ -1,0 +1,43 @@
+{
+    "name": "simple-team/svg-picker",
+    "description": "Define your own svg symbols and use a field type to pick it.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "svg picker"
+    ],
+    "support": {
+        "docs": "https://github.com/https://github.com/simple-integrated-marketing/svg-picker/blob/master/README.md",
+        "issues": "https://github.com/https://github.com/simple-integrated-marketing/svg-picker/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simple Integrated Marketing",
+            "homepage": "https://simple.com.au"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "simpleteam\\svgpicker\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Svg Picker",
+        "handle": "svg-picker",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/https://github.com/simple-integrated-marketing/svg-picker/master/CHANGELOG.md",
+        "components": {
+            "svgPickerService": "simpleteam\\svgpicker\\services\\SvgPickerService"
+        },
+        "class": "simpleteam\\svgpicker\\SvgPicker"
+    }
+}

@@ -1,0 +1,27 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Svg Picker plugin for Craft CMS 3.x
+ *
+ * Svg Picker Settings.twig
+ *
+ * @author    Simple Integrated Marketing
+ * @copyright Copyright (c) 2018 Simple Integrated Marketing
+ * @link      https://simple.com.au
+ * @package   SvgPicker
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("simpleteam\\svgpicker\\assetbundles\\svgpicker\\SvgPickerAsset") %}
+
+{{ forms.hidden({
+    id: 'json',
+    name: 'json',
+    value: settings['json']})
+}}
+
+
+<div id="svg-picker-settings"></div>

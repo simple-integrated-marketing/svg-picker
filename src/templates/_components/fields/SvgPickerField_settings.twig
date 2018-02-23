@@ -1,0 +1,28 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Svg Picker plugin for Craft CMS
+ *
+ * SvgPickerField Field Settings
+ *
+ * @author    Simple Integrated Marketing
+ * @copyright Copyright (c) 2018 Simple Integrated Marketing
+ * @link      https://simple.com.au
+ * @package   SvgPicker
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+
+{{
+    forms.checkboxSelectField({
+        label: 'Target Set(s)',
+        instructions: "Select the target svg sets",
+        id: 'targetSets',
+        name: 'targetSets',
+        values: field['targetSets'],
+        options: options
+    })
+}}
