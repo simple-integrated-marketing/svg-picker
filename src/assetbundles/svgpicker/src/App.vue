@@ -50,7 +50,7 @@
                   <div class="set-card__content set-card-content" v-if="set.name == activeSetName">
                       <div v-for="(svg,svgIndex) in set.svgs" class="svg-card">
                           <div class="svg-card__name">
-                              #<editable :content="svg.id" @update="svg.id = $event"></editable>
+                              <span>#</span><input v-model="svg.id">
                           </div>
                           <div class="svg-card__preview" v-html="generateSvgHtml(svg)" @click="sendToClipboard(svg.symbol)">
                           </div>
@@ -93,7 +93,6 @@
   import freeSolid from '@fortawesome/fontawesome-free-solid';
   import axios from 'axios';
   import { SwappingSquaresSpinner  } from 'epic-spinners';
-  import Editable from "./Editable";
   let $ = window.jQuery;
   fontawesome.library.add(freeRegular,freeSolid);
   export default {
@@ -118,7 +117,6 @@
       components: {
           FontAwesomeIcon,
           SwappingSquaresSpinner,
-          Editable
       },
       computed: {
           summary() {
@@ -341,6 +339,13 @@
                 background: #e3e3e3;
                 padding:10px 30px 10px 10px;
                 border-bottom:1px solid #e3e3e3;
+                display:flex;
+                flex-flow:row nowrap;
+                input {
+                    background-color:transparent;
+                    display:inline-block;
+                    border:0;
+                }
             }
             &__preview{
                 position:relative;
