@@ -30,5 +30,29 @@ To install the plugin, follow these instructions.
 
 4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Svg Picker.
 
+## Usage
+
+Svg Picker field is the id of the icon.
+
+Example usage:
+
+```twig
+<svg>
+    <use xlink:href="#{{entry.svgIcon}}">
+</svg>
+```
+
+There are 3 ways you could "import" svg definition file into the DOM.
+
+1. Manually reference external css/js like Icomoon. Note that you are responsible to keep the icons in sync with the setting.
+
+2. Use `{{ inlineSvgDefsContent() }}` to import the the svg definitions inline, or `{{ inlineSvgDefsContent({sets:['SETNAME']}) }}` to only inline a list of specific sets.
+
+3. Use `{{ ajaxSvgDefsContent() }}` to ajax the svg definitions via javascript, or `{{ ajaxSvgDefsContent({sets:['SETNAME']}) }}` to only ajax a list of specific sets.
+
+
+
+
+
 
 Brought to you by [Simple Integrated Marketing](https://simple.com.au)

@@ -43,12 +43,23 @@ class SvgPickerService extends Component
      *
      * @return mixed
      */
-    public function exampleService()
+    public function generateSvgDefsContent($options)
     {
-        $result = 'something';
-        // Check our Plugin's settings for `someAttribute`
-        if (SvgPicker::$plugin->getSettings()->someAttribute) {
+        $filterBySets = $options['sets']??[];
+
+        $settings = SvgPicker::getInstance()->getSettings();
+
+        $settingObj = json_decode($settings->json,true);
+        $result = "<svg aria-hidden=\"true\" style=\"position: absolute; width: 0; height: 0; overflow: hidden;\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs>";
+        foreach ($settingObj as $set) {
+            if (sizeof($filterBySets) > 0 && !in_array($set['name'],$filterBySets) ) {
+                continue;
+            }
+            foreach ($set['svgs'] as $svg) {
+                $result .="<symbol id='".addslashes($svg['id'])."' viewBox='".addslashes($svg['viewBox'])."'>".$svg['symbol']."</symbol>";
+            }
         }
+        $result .= "</defs></svg>";
 
         return $result;
     }

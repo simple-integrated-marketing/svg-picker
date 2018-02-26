@@ -10,6 +10,7 @@
 
 namespace simpleteam\svgpicker\twigextensions;
 
+use craft\config\GeneralConfig;
 use simpleteam\svgpicker\SvgPicker;
 
 use Craft;
@@ -50,7 +51,6 @@ class SvgPickerTwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('someFilter', [$this, 'someInternalFunction']),
         ];
     }
 
@@ -64,7 +64,8 @@ class SvgPickerTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('someFunction', [$this, 'someInternalFunction']),
+            new \Twig_SimpleFunction('inlineSvgDefsContent', [$this, 'inlineSvgDefsContent'],['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('ajaxSvgDefsContent', [$this, 'ajaxSvgDefsContent'],['is_safe' => ['html']]),
         ];
     }
 
@@ -75,10 +76,26 @@ class SvgPickerTwigExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function someInternalFunction($text = null)
+    public function inlineSvgDefsContent($options = [])
     {
-        $result = $text . " in the way";
-
+        $result = SvgPicker::$plugin->svgPickerService->generateSvgDefsContent($options);
         return $result;
+    }
+
+    public function ajaxSvgDefsContent($options = []) {
+        $url = Craft::$app->config->general->actionTrigger."/svg-picker?".http_build_query(['options'=>$options]);
+        $js = <<<JS
+<script>
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", "{$url}", true);
+    ajax.send();
+    ajax.onload = function(e) {
+      var div = document.createElement("div");
+      div.innerHTML = ajax.responseText;
+      document.body.insertBefore(div, document.body.childNodes[0]);
+    }
+</script>
+JS;
+        return $js;
     }
 }
