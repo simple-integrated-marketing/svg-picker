@@ -45,15 +45,66 @@ class Settings extends Model implements \JsonSerializable
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        // Because Craft native settings column cannot handle LONGTEXT, save it to file for now. (EVENT HOOK is used to save to this file)
-        $file = dirname(__FILE__).DIRECTORY_SEPARATOR."Setting.json";
-        if (file_exists($file)) {
-            $this->json = file_get_contents($file);
-        } else {
-            file_put_contents($file,$this->json);
-        }
-        $this->filePath = $file;
+
+        Craft::configure($this, static::retrieveSavedSetting());
     }
+
+    /**
+     * Previously, we store the setting in a json file due to the fact that the plugin setting column in Craft is just a TEXT field. And if the svg set is too big, it will get truncated.
+     * However, this remains an issue because *.Setting.json stored in the vendor folder and cannot be recovered in migration.
+     * This function will check for any legacy Setting.json file and convert it to the new solution - mysql table
+     * Getter Function for settings
+     */
+    public static function retrieveSavedSetting() {
+        // Setting default
+        $setting = [
+            'filePath' => __DIR__.DIRECTORY_SEPARATOR."Setting.json",
+            'json' => '[]',
+        ];
+        // Create mysql table if not exist.
+        if (!Craft::$app->db->schema->getTableSchema("{{%simple-svg-picker}}")) {
+            Craft::$app->db->createCommand()->createTable("{{%simple-svg-picker}}", [
+                "id" => 'pk',
+                "json" => 'LONGTEXT',
+                "dateCreated" => 'datetime',
+                "dateUpdated" => 'datetime',
+                "uid" => 'string'
+            ])->execute();
+        }
+
+        $settingInDb = Craft::$app->db->createCommand("SELECT json FROM {{%simple-svg-picker}}")->queryOne();
+        if ($settingInDb) {
+            $setting['json'] = $settingInDb['json'];
+            return $setting;
+        }
+
+        // If there is no record in system try to check if the setting is stored in Setting.json, and insert it into the new mysql table
+        $file = $setting['filePath'];
+        if (file_exists($file)) {
+            $json = file_get_contents($file);
+            Craft::$app->db->createCommand()->insert("{{%simple-svg-picker}}", [
+                'json' => $json
+            ])->execute();
+            $setting['json'] = $json;
+        }
+
+        return $setting;
+    }
+
+    /**
+     * Setter function for settings
+     * @param $json
+     * @throws \yii\db\Exception
+     */
+    public static function saveSetting($json) {
+        $settingInDb = Craft::$app->db->createCommand("SELECT json FROM {{%simple-svg-picker}}")->queryOne();
+        if ($settingInDb) {
+            return Craft::$app->db->createCommand()->update("{{%simple-svg-picker}}", ['json' => $json])->execute();
+        }
+        return Craft::$app->db->createCommand()->insert("{{%simple-svg-picker}}", ['json' => $json])->execute();
+    }
+
+
 
     // Public Methods
     // =========================================================================

@@ -115,9 +115,8 @@ class SvgPicker extends Plugin
             Plugins::EVENT_BEFORE_SAVE_PLUGIN_SETTINGS,
             function (PluginEvent $event) {
                 if ($event->plugin === $this) {
-                    $filePath = $event->plugin->getSettings()->filePath;
                     $content = $event->plugin->getSettings()->json;
-                    file_put_contents($filePath,$content);
+                    Settings::saveSetting($content);
                 }
             }
         );

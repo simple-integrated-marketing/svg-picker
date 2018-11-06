@@ -1,6 +1,6 @@
 Vue = window.Vue;
 // import Vue from 'vue';
-// Vue.config.devtools = true;
+Vue.config.devtools = true;
 import App from './App.vue'
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);

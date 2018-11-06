@@ -7,7 +7,7 @@
             <table class="general-table">
                   <thead>
                       <tr>
-                          <th>Total Svg</th>
+                          <th>Total Svgs</th>
                           <th>Total Sets</th>
                       </tr>
                   </thead>
@@ -33,8 +33,16 @@
               </div>
           </div>
           <div class="wrapper" v-else>
-              <div class="wrapper__row"><input class="text" type="text" placeholder="Name *" v-model="newSet.name"></div>
-              <div class="wrapper__row"><input class="text" type="text" placeholder="Remote Url" v-model="newSet.importUrl"></div>
+              <div class="wrapper__row">
+                  Give your set a name
+              </div>
+              <div class="wrapper__row">
+                  <input class="text" type="text" placeholder="Name *" v-model="newSet.name">
+              </div>
+              <div class="wrapper__row">
+                  We will try to get the all the svgs from this remote file (usually it's from Icomoon)
+              </div>
+              <div class="wrapper__row"><input class="text" type="text" placeholder="Remote Url *" v-model="newSet.importUrl"></div>
               <div class="wrapper__row error" v-if="validation.isSetNameDuplicated">Set Name Exists</div>
               <div class="wrapper__row">
                   <button class="btn submit" :class="{'disabled':validation.isSetNameDuplicated || validation.isSetNameEmpty}" :disabled="validation.isSetNameDuplicated || validation.isSetNameEmpty" type="button" @click="addNewSet">Add new set</button>
@@ -98,6 +106,7 @@
   export default {
       name: 'app',
       data () {
+          console.log(JSON.parse(document.getElementById("settings-json").value));
           return {
               settings: JSON.parse(document.getElementById("settings-json").value),
               newSet: {
@@ -121,8 +130,8 @@
       computed: {
           summary() {
               return {
-                  totalSvg: this.settings.length,
-                  totalSets: this.allSvgs.length,
+                  totalSets: this.settings.length,
+                  totalSvg: this.allSvgs.length,
               }
           },
           validation() {
