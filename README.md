@@ -1,7 +1,4 @@
-# Link It plugin for Craft CMS 3.x
-
-![Screenshot](resources/img/plugin-logo.png)
-Svg Picker Plugin for Craft3
+# Svg Picker Plugin for Craft3
 
 ## Requirements
 
