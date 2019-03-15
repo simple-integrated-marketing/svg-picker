@@ -2,7 +2,6 @@
     "name": "simple-team/svg-picker",
     "description": "Define your own svg symbols and use a field type to pick it.",
     "type": "craft-plugin",
-    "version": "1.0.0",
     "keywords": [
         "craft",
         "cms",
