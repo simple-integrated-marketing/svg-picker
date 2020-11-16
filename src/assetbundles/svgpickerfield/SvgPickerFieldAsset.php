@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2018 Simple Integrated Marketing
  */
 
-namespace simpleteam\svgpicker\assetbundles\svgpickerfieldfield;
+namespace simpleteam\svgpicker\assetbundles\svgpickerfield;
 
 use Craft;
 use craft\web\AssetBundle;

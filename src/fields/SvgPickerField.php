@@ -11,7 +11,7 @@
 namespace simpleteam\svgpicker\fields;
 
 use simpleteam\svgpicker\SvgPicker;
-use simpleteam\svgpicker\assetbundles\svgpickerfieldfield\SvgPickerFieldAsset;
+use simpleteam\svgpicker\assetbundles\svgpickerfield\SvgPickerFieldAsset;
 
 use Craft;
 use craft\base\ElementInterface;
