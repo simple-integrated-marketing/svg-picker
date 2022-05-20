@@ -119,7 +119,7 @@ class Settings extends Model implements \JsonSerializable
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['json', 'string'],

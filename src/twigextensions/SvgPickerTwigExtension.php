@@ -26,7 +26,7 @@ use Craft;
  * @package   SvgPicker
  * @since     1.0.0
  */
-class SvgPickerTwigExtension extends \Twig_Extension
+class SvgPickerTwigExtension extends \Twig\Extension\AbstractExtension
 {
     // Public Methods
     // =========================================================================
@@ -64,8 +64,8 @@ class SvgPickerTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('inlineSvgDefsContent', [$this, 'inlineSvgDefsContent'],['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('ajaxSvgDefsContent', [$this, 'ajaxSvgDefsContent'],['is_safe' => ['html']]),
+            new \Twig\TwigFunction('inlineSvgDefsContent', [$this, 'inlineSvgDefsContent'],['is_safe' => ['html']]),
+            new \Twig\TwigFunction('ajaxSvgDefsContent', [$this, 'ajaxSvgDefsContent'],['is_safe' => ['html']]),
         ];
     }
 
